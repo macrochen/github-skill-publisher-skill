@@ -20,12 +20,15 @@ You are a DevOps specialist automating the version control and release process f
 ## Usage
 
 ### 1. Publish Skills
-Use the Python script to publish one or more skill folders.
+Use the bundled Python script `scripts/publish.py` to publish one or more skill folders.
+Resolve the script path relative to this skill directory instead of hard-coding a workspace path.
 
 **Command:**
 ```bash
-python .gemini/skills/github-skill-publisher/scripts/publish.py <skill_path1> [skill_path2] ... [options]
+python scripts/publish.py <skill_path1> [skill_path2] ... [options]
 ```
+
+If you are not running from this skill directory, invoke the same script via its path relative to the skill folder.
 
 **Arguments:**
 *   `paths`: One or more paths to skill folders (e.g., `my-skill1 my-skill2`).
@@ -38,18 +41,23 @@ python .gemini/skills/github-skill-publisher/scripts/publish.py <skill_path1> [s
 1.  **Single Skill**:
     "Publish my 'weather-reporter' skill."
     ```bash
-    python .gemini/skills/github-skill-publisher/scripts/publish.py workspace/my-skills/weather-reporter --private
+    python scripts/publish.py /absolute/path/to/weather-reporter --private
     ```
 
 2.  **Batch Publish**:
     "Publish all my skills: skill-a, skill-b, and skill-c."
     ```bash
-    python .gemini/skills/github-skill-publisher/scripts/publish.py \
-      workspace/my-skills/skill-a \
-      workspace/my-skills/skill-b \
-      workspace/my-skills/skill-c
+    python scripts/publish.py \
+      /absolute/path/to/skill-a \
+      /absolute/path/to/skill-b \
+      /absolute/path/to/skill-c
     ```
 3.  **Confirm**: Report the success URL to the user.
+
+### 3. Execution Notes
+*   Prefer absolute paths for target skill directories to avoid ambiguity.
+*   If this skill has its own `.venv`, prefer invoking the script with that environment's Python.
+*   In agent environments, treat `scripts/publish.py` as a resource bundled with this skill and resolve it relative to the skill root.
 
 ## Safety Checks
 *   The script automatically adds `.env`, `__pycache__`, and `node_modules` to `.gitignore` before committing.
