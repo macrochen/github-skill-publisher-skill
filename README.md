@@ -36,15 +36,20 @@ You are a DevOps specialist automating the version control and release process f
 ### 1. Publish Skills
 Use the Python script to publish one or more skill folders.
 
+Default visibility rule:
+
+- New repositories are created as `public` by default.
+- Only create a private repository when the user explicitly asks for `private` or `私有`.
+
 **Command:**
 ```bash
-python .gemini/skills/github-skill-publisher/scripts/publish.py <skill_path1> [skill_path2] ... [options]
+python .gemini/skills/github-skill-publisher-skill/scripts/publish.py <skill_path1> [skill_path2] ... [options]
 ```
 
 **Arguments:**
 *   `paths`: One or more paths to skill folders (e.g., `my-skill1 my-skill2`).
 *   `--name <name>`: (Optional) Name of the GitHub repo. **Only works when publishing a single skill.**
-*   `--private`: (Optional) Flag to make the repository private.
+*   `--private`: (Optional) Flag to make the repository private. If omitted, the new repo is public.
 *   `--desc`: (Optional) Description for the repository.
 *   `--force`: (Optional) Force push to remote, overwriting history. **Use with caution.**
 
@@ -52,18 +57,27 @@ python .gemini/skills/github-skill-publisher/scripts/publish.py <skill_path1> [s
 1.  **Single Skill**:
     "Publish my 'weather-reporter' skill."
     ```bash
-    python .gemini/skills/github-skill-publisher/scripts/publish.py workspace/my-skills/weather-reporter --private
+    python .gemini/skills/github-skill-publisher-skill/scripts/publish.py /absolute/path/to/weather-reporter
+    ```
+
+    "Publish my 'weather-reporter' skill as a private repo."
+    ```bash
+    python .gemini/skills/github-skill-publisher-skill/scripts/publish.py /absolute/path/to/weather-reporter --private
     ```
 
 2.  **Batch Publish**:
     "Publish all my skills: skill-a, skill-b, and skill-c."
     ```bash
-    python .gemini/skills/github-skill-publisher/scripts/publish.py \
-      workspace/my-skills/skill-a \
-      workspace/my-skills/skill-b \
-      workspace/my-skills/skill-c
+    python .gemini/skills/github-skill-publisher-skill/scripts/publish.py \
+      /absolute/path/to/skill-a \
+      /absolute/path/to/skill-b \
+      /absolute/path/to/skill-c
     ```
 3.  **Confirm**: Report the success URL to the user.
+
+## Execution Notes
+*   Unless the user explicitly requests privacy, do not add `--private`.
+*   Prefer absolute paths for target skill directories to avoid ambiguity.
 
 ## Safety Checks
 *   The script automatically adds `.env`, `__pycache__`, and `node_modules` to `.gitignore` before committing.

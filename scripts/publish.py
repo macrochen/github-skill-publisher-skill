@@ -140,6 +140,7 @@ def publish_skill(skill_path_str, repo_name, is_private, description, force=Fals
         sys.exit(1)
 
     print(f"🚀 Preparing to publish skill from: {skill_path}")
+    print(f"🌐 Target visibility: {'private' if is_private else 'public (default)'}")
     
     # 1. Initialize Git if needed
     if not (skill_path / ".git").exists():
@@ -199,7 +200,7 @@ def main():
     parser = argparse.ArgumentParser(description='Publish local skills to GitHub')
     parser.add_argument('paths', nargs='+', help='Paths to the skill directories')
     parser.add_argument('--name', help='Name of the GitHub repo (only works when publishing a single skill)')
-    parser.add_argument('--private', action='store_true', help='Make the repository private')
+    parser.add_argument('--private', action='store_true', help='Make the repository private. If omitted, new repositories are public by default.')
     parser.add_argument('--desc', help='Repository description')
     parser.add_argument('--force', action='store_true', help='Force push to remote (DANGEROUS: overwrites remote history)')
 

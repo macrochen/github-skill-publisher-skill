@@ -23,6 +23,12 @@ You are a DevOps specialist automating the version control and release process f
 Use the bundled Python script `scripts/publish.py` to publish one or more skill folders.
 Resolve the script path relative to this skill directory instead of hard-coding a workspace path.
 
+Default visibility rule:
+
+- New repositories are created as `public` by default.
+- Only create a private repository when the user explicitly asks for `private` or `私有`.
+- If the user only says “publish”, “sync to GitHub”, or “create a repo”, treat that as a public publish request.
+
 **Command:**
 ```bash
 python scripts/publish.py <skill_path1> [skill_path2] ... [options]
@@ -33,13 +39,18 @@ If you are not running from this skill directory, invoke the same script via its
 **Arguments:**
 *   `paths`: One or more paths to skill folders (e.g., `my-skill1 my-skill2`).
 *   `--name <name>`: (Optional) Name of the GitHub repo. **Only works when publishing a single skill.**
-*   `--private`: (Optional) Flag to make the repository private.
+*   `--private`: (Optional) Flag to make the repository private. If omitted, the new repo is public.
 *   `--desc`: (Optional) Description for the repository.
 *   `--force`: (Optional) Force push to remote, overwriting history. **Use with caution.**
 
 ### 2. Workflow Example
 1.  **Single Skill**:
     "Publish my 'weather-reporter' skill."
+    ```bash
+    python scripts/publish.py /absolute/path/to/weather-reporter
+    ```
+
+    "Publish my 'weather-reporter' skill as a private repo."
     ```bash
     python scripts/publish.py /absolute/path/to/weather-reporter --private
     ```
@@ -58,6 +69,7 @@ If you are not running from this skill directory, invoke the same script via its
 *   Prefer absolute paths for target skill directories to avoid ambiguity.
 *   If this skill has its own `.venv`, prefer invoking the script with that environment's Python.
 *   In agent environments, treat `scripts/publish.py` as a resource bundled with this skill and resolve it relative to the skill root.
+*   Unless the user explicitly requests privacy, do not add `--private`.
 
 ## Safety Checks
 *   The script automatically adds `.env`, `__pycache__`, and `node_modules` to `.gitignore` before committing.
