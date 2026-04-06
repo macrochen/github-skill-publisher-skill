@@ -43,7 +43,7 @@ Default visibility rule:
 
 **Command:**
 ```bash
-python .gemini/skills/github-skill-publisher-skill/scripts/publish.py <skill_path1> [skill_path2] ... [options]
+python ~/.agents/skills/github-skill-publisher-skill/scripts/publish.py <skill_path1> [skill_path2] ... [options]
 ```
 
 **Arguments:**
@@ -57,18 +57,18 @@ python .gemini/skills/github-skill-publisher-skill/scripts/publish.py <skill_pat
 1.  **Single Skill**:
     "Publish my 'weather-reporter' skill."
     ```bash
-    python .gemini/skills/github-skill-publisher-skill/scripts/publish.py /absolute/path/to/weather-reporter
+    python ~/.agents/skills/github-skill-publisher-skill/scripts/publish.py /absolute/path/to/weather-reporter
     ```
 
     "Publish my 'weather-reporter' skill as a private repo."
     ```bash
-    python .gemini/skills/github-skill-publisher-skill/scripts/publish.py /absolute/path/to/weather-reporter --private
+    python ~/.agents/skills/github-skill-publisher-skill/scripts/publish.py /absolute/path/to/weather-reporter --private
     ```
 
 2.  **Batch Publish**:
     "Publish all my skills: skill-a, skill-b, and skill-c."
     ```bash
-    python .gemini/skills/github-skill-publisher-skill/scripts/publish.py \
+    python ~/.agents/skills/github-skill-publisher-skill/scripts/publish.py \
       /absolute/path/to/skill-a \
       /absolute/path/to/skill-b \
       /absolute/path/to/skill-c
